@@ -1,9 +1,11 @@
 #ifndef TRANSFORM_COMPONENT_H
 #define TRANSFORM_COMPONENT_H
 
-#include "../EntityManager.h"
-#include "../../lib/glm/glm.hpp"
 #include <SDL2/SDL.h>
+
+#include "../../lib/glm/glm.hpp"
+
+#include "../EntityManager.h"
 #include "../Game.h"
 
 class TransformComponent: public Component {

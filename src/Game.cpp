@@ -1,7 +1,10 @@
 #include <iostream>
+
+#include "../lib/glm/glm.hpp"
+
 #include "./Constants.h"
 #include "./Game.h"
-#include "../lib/glm/glm.hpp"
+#include "./Components/TransformComponent.h"
 
 EntityManager manager;
 SDL_Renderer* Game::renderer;
@@ -42,10 +45,34 @@ void Game::Initialize(int width, int height) {
   if(!renderer) {
     std::cerr << "Error creating renderer." << std::endl;
   }
+  ticksLastFrame = 0;
+
+  LoadLevel(0);
 
   isRunning = true;
-  ticksLastFrame = 0;
   return;
+}
+
+void Game::LoadLevel(int levelNum) {
+  int w,h; 
+  SDL_GetWindowSize(window, &w, &h);
+
+  manager
+    .AddEntity("top-right")
+    .AddComponent<TransformComponent>(0, 0, 100, 20, 30, 30, 1);
+
+  manager
+    .AddEntity("top-left")
+    .AddComponent<TransformComponent>(w - 30, 0, -100, 20, 30, 30, 1);
+
+  manager
+    .AddEntity("bottom-left")
+    .AddComponent<TransformComponent>(w - 30, h - 30, -100, -20, 30, 30, 1);
+
+  manager
+    .AddEntity("bottom-right")
+    .AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
+
 }
 
 void Game::ProcessInput() {
@@ -79,13 +106,20 @@ void Game::Update() {
   dt = dt > FRAME_TARGET_TIME ? FRAME_TARGET_TIME : dt;
 
   ticksLastFrame = SDL_GetTicks();
+
+  manager.Update(dt);
 }
 
 void Game::Render() {
   SDL_SetRenderDrawColor(renderer, 55, 55, 55, 255);
   SDL_RenderClear(renderer);
 
-  SDL_RenderPresent(renderer);
+  if(manager.HasNoEntities()) return;
+  else {
+    manager.Render();
+
+    SDL_RenderPresent(renderer);
+  }  
 }
 
 void Game::Destroy() {
