@@ -29,8 +29,8 @@ void Entity::Destroy() {
 }
 
 void Entity::PrintComponents() const {
-  for(auto& component: components) {
-    component->Print();
+  for(auto& component: componentTypeMap) {
+    std::cout << "  Component<" << component.first->name() << ">" << std::endl;
   }
 }
 

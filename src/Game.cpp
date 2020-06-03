@@ -71,15 +71,15 @@ void Game::LoadLevel(int levelNum) {
   topRight.AddComponent<TransformComponent>(0, 0, 100, 20, 30, 30, 1);
   topRight.AddComponent<SpriteComponent>("tank-right-facing");
   
-  Entity& topLeft = manager.AddEntity("top-right");
+  Entity& topLeft = manager.AddEntity("top-left");
   topLeft.AddComponent<TransformComponent>(w - 30, 0, -100, 20, 30, 30, 1);
   topLeft.AddComponent<SpriteComponent>("tank-left-facing");
   
-  Entity& bottomLeft = manager.AddEntity("top-right");
+  Entity& bottomLeft = manager.AddEntity("bottom-left");
   bottomLeft.AddComponent<TransformComponent>(w - 30, h - 30, -100, -20, 30, 30, 1);
   bottomLeft.AddComponent<SpriteComponent>("tank-left-facing");
   
-  Entity& bottomRight = manager.AddEntity("top-right");
+  Entity& bottomRight = manager.AddEntity("bottom-right");
   bottomRight.AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
   bottomRight.AddComponent<SpriteComponent>("tank-right-facing");
 

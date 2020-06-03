@@ -36,10 +36,6 @@ class TransformComponent: public Component {
 
     void Render() override {
     }
-
-    void Print() override {
-      std::cout << "    Component<TransformComponent>" << std::endl;
-    }
 };
 
 #endif
