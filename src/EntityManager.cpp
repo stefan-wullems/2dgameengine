@@ -1,3 +1,4 @@
+#include <iostream>
 #include "./EntityManager.h"
 
 void EntityManager::ClearData() {
@@ -19,6 +20,14 @@ void EntityManager::Update(float dt) {
 void EntityManager::Render() {
   for(auto& entity: entities) {
     entity->Render();
+  }
+}
+
+void EntityManager::PrintEntities() const {
+  for(auto& entity: entities) {
+    std::cout << std::endl;
+    std::cout << "Entity name: " << entity->name << std::endl;
+    entity->PrintComponents();
   }
 }
 

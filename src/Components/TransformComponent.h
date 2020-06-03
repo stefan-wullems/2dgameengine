@@ -1,6 +1,7 @@
 #ifndef TRANSFORM_COMPONENT_H
 #define TRANSFORM_COMPONENT_H
 
+#include <iostream>
 #include <SDL2/SDL.h>
 
 #include "../../lib/glm/glm.hpp"
@@ -42,6 +43,10 @@ class TransformComponent: public Component {
       };
       SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
       SDL_RenderFillRect(Game::renderer, &transformRectangle);
+    }
+
+    void Print() override {
+      std::cout << "    Component<TransformComponent>" << std::endl;
     }
 };
 

@@ -14,6 +14,4 @@ int main() {
   }
 
   game->Destroy();
-
-  std::cout << "Hello World!" << std::endl;
 }

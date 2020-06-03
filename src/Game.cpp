@@ -49,6 +49,8 @@ void Game::Initialize(int width, int height) {
 
   LoadLevel(0);
 
+  manager.PrintEntities();
+
   isRunning = true;
   return;
 }

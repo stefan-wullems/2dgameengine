@@ -1,3 +1,7 @@
+#include <iostream>
+#include <cxxabi.h>
+#define quote(x) #x
+
 #include "./Entity.h"
 
 Entity::Entity(EntityManager& manager): manager(manager) {
@@ -22,6 +26,12 @@ void Entity::Render() {
 
 void Entity::Destroy() {
   this->isActive = false;
+}
+
+void Entity::PrintComponents() const {
+  for(auto& component: components) {
+    component->Print();
+  }
 }
 
 bool Entity::IsActive() const {
