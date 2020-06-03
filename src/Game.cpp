@@ -82,7 +82,6 @@ void Game::LoadLevel(int levelNum) {
   Entity& bottomRight = manager.AddEntity("bottom-right");
   bottomRight.AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
   bottomRight.AddComponent<SpriteComponent>("tank-right-facing");
-
 }
 
 void Game::ProcessInput() {

@@ -27,6 +27,16 @@ class Entity {
     bool IsActive() const;
     void PrintComponents() const;
 
+    template <typename T>
+    bool HasComponent() {
+      try{
+        componentTypeMap.at(&typeid(T));
+        return true;
+      } catch (std::out_of_range) {
+        return false;
+      }
+    }
+
     template <typename T, typename ...TArgs>
     T& AddComponent(TArgs&& ...args) {
       T* newComponent(new T(std::forward<TArgs>(args)...));
