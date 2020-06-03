@@ -60,27 +60,28 @@ void Game::Initialize(int width, int height) {
 }
 
 void Game::LoadLevel(int levelNum) {
-  std::string textureFilePath = "./assets/images/tank-big-right.png";
-  assetManager->AddTexture("tank-image", textureFilePath.c_str());
+
+  assetManager->AddTexture("tank-right-facing", ((std::string)"./assets/images/tank-big-right.png").c_str());
+  assetManager->AddTexture("tank-left-facing", ((std::string)"./assets/images/tank-big-left.png").c_str());
 
   int w,h; 
   SDL_GetWindowSize(window, &w, &h);
 
   Entity& topRight = manager.AddEntity("top-right");
   topRight.AddComponent<TransformComponent>(0, 0, 100, 20, 30, 30, 1);
-  topRight.AddComponent<SpriteComponent>("tank-image");
+  topRight.AddComponent<SpriteComponent>("tank-right-facing");
   
   Entity& topLeft = manager.AddEntity("top-right");
   topLeft.AddComponent<TransformComponent>(w - 30, 0, -100, 20, 30, 30, 1);
-  topLeft.AddComponent<SpriteComponent>("tank-image");
+  topLeft.AddComponent<SpriteComponent>("tank-left-facing");
   
   Entity& bottomLeft = manager.AddEntity("top-right");
   bottomLeft.AddComponent<TransformComponent>(w - 30, h - 30, -100, -20, 30, 30, 1);
-  bottomLeft.AddComponent<SpriteComponent>("tank-image");
+  bottomLeft.AddComponent<SpriteComponent>("tank-left-facing");
   
   Entity& bottomRight = manager.AddEntity("top-right");
   bottomRight.AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
-  bottomRight.AddComponent<SpriteComponent>("tank-image");
+  bottomRight.AddComponent<SpriteComponent>("tank-right-facing");
 
 }
 

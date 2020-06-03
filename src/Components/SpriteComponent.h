@@ -43,6 +43,11 @@ class SpriteComponent: public Component {
     void Render() override {
       TextureManager::Draw(texture, sourceRectangle, destinationRectangle, spriteFlip);
     }
+
+    void Print() override {
+      std::cout << "    Component<SpriteComponent>" << std::endl;
+    }
+
 };
 
 #endif
