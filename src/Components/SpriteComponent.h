@@ -42,16 +42,21 @@ class SpriteComponent: public Component {
     ): frameAmount(frameAmount), animationSpeed(animationSpeed), isFixed(isFixed) {
       this->isAnimated = true;
 
+      std::cout << std::to_string(this->frameAmount) << std::endl;
+      std::cout << std::to_string(this->animationIndex) << std::endl;
+      std::cout << std::to_string(this->animationSpeed) << std::endl;
+      std::cout << this->currentAnimationName << std::endl;
+
       if(hasDirections) {   
-        this->animations.emplace("DownAnimation", Animation(0, animationSpeed, frameAmount));
-        this->animations.emplace("RightAnimation", Animation(1, animationSpeed, frameAmount));
-        this->animations.emplace("LeftAnimation", Animation(2, animationSpeed, frameAmount));
-        this->animations.emplace("UpAnimation", Animation(3, animationSpeed, frameAmount));
+        this->animations.emplace("DownAnimation", Animation(0, this->animationSpeed, this->frameAmount));
+        this->animations.emplace("RightAnimation", Animation(1, this->animationSpeed, this->frameAmount));
+        this->animations.emplace("LeftAnimation", Animation(2, this->animationSpeed, this->frameAmount));
+        this->animations.emplace("UpAnimation", Animation(3, this->animationSpeed, this->frameAmount));
 
         this->animationIndex = 0;
         this->currentAnimationName = "DownAnimation";
       } else {
-        this->animations.emplace("SingleAnimation", Animation(0, animationSpeed, frameAmount));
+        this->animations.emplace("SingleAnimation", Animation(0, this->animationSpeed, this->frameAmount));
 
         this->animationIndex = 0;
         this->currentAnimationName = "SingleAnimation";
@@ -66,11 +71,6 @@ class SpriteComponent: public Component {
       this->animationIndex = this->animations[animationName].index;
       this->animationSpeed = this->animations[animationName].animationSpeed;
       this->currentAnimationName = animationName;
-
-      std::cout << this->frameAmount << " & " << this->animations[animationName].frameAmount << std::endl;
-      std::cout << this->animationIndex << " & " << this->animations[animationName].index << std::endl;
-      std::cout << this->animationSpeed << " & " << this->animations[animationName].animationSpeed << std::endl;
-      std::cout << this->currentAnimationName << std::endl;
     }
 
     void SetTexture(std::string assetTextureId) {

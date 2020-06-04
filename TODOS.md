@@ -1,0 +1,2 @@
+- [] add sprite scripts wherein the components of an entity can be modified
+- [] add a keyEventMap to the KeyboardInputComponent, an AddKeyEvent function and an OnKeyEvent function.

@@ -8,10 +8,13 @@
 
 #include "./Components/TransformComponent.h"
 #include "./Components/SpriteComponent.h"
+#include "./Components/KeyboardInputComponent.h"
+
 
 EntityManager manager;
 AssetManager* Game::assetManager = new AssetManager(&manager);
 SDL_Renderer* Game::renderer;
+SDL_Event Game::event;
 
 Game::Game() {
   this->isRunning = false;
@@ -89,14 +92,15 @@ void Game::LoadLevel(int levelNum) {
   Entity& chopper = manager.AddEntity("chopper");
   chopper.AddComponent<TransformComponent>(320, 106, 0, 0, 32, 32, 1);
   chopper.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
+  chopper.AddComponent<KeyboardInputComponent>("w", "d", "s", "a", "space");
 
   Entity& radar = manager.AddEntity("radar");
-  chopper.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
-  chopper.AddComponent<SpriteComponent>("radar-image", 8, 200, false, true);
+  radar.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
+  radar.AddComponent<SpriteComponent>("radar-image", 8, 200, false, true);
+  
 }
 
 void Game::ProcessInput() {
-  SDL_Event event;
   SDL_PollEvent(&event);
 
   switch (event.type) {
