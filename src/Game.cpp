@@ -14,6 +14,7 @@
 EntityManager manager;
 AssetManager* Game::assetManager = new AssetManager(&manager);
 SDL_Renderer* Game::renderer;
+SDL_Window* Game::window;
 SDL_Event Game::event;
 
 Game::Game() {
