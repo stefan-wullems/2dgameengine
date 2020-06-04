@@ -65,6 +65,7 @@ void Game::LoadLevel(int levelNum) {
   assetManager->AddTexture("tank-left-facing", std::string("./assets/images/tank-big-left.png").c_str());
 
   assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
+  assetManager->AddTexture("radar-image", std::string("./assets/images/radar.png").c_str());
 
   int w,h; 
   SDL_GetWindowSize(window, &w, &h);
@@ -88,6 +89,10 @@ void Game::LoadLevel(int levelNum) {
   Entity& chopper = manager.AddEntity("chopper");
   chopper.AddComponent<TransformComponent>(320, 106, 0, 0, 32, 32, 1);
   chopper.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
+
+  Entity& radar = manager.AddEntity("radar");
+  chopper.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
+  chopper.AddComponent<SpriteComponent>("radar-image", 8, 200, false, true);
 }
 
 void Game::ProcessInput() {
