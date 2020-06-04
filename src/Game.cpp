@@ -5,17 +5,18 @@
 #include "./Constants.h"
 #include "./Game.h"
 #include "./AssetManager.h"
+#include "./Map.h"
 
 #include "./Components/TransformComponent.h"
 #include "./Components/SpriteComponent.h"
 #include "./Components/KeyboardInputComponent.h"
-
 
 EntityManager manager;
 AssetManager* Game::assetManager = new AssetManager(&manager);
 SDL_Renderer* Game::renderer;
 SDL_Window* Game::window;
 SDL_Event Game::event;
+Map* map;
 
 Game::Game() {
   this->isRunning = false;
@@ -70,6 +71,11 @@ void Game::LoadLevel(int levelNum) {
 
   assetManager->AddTexture("chopper-image", std::string("./assets/images/chopper-spritesheet.png").c_str());
   assetManager->AddTexture("radar-image", std::string("./assets/images/radar.png").c_str());
+
+  assetManager->AddTexture("jungle-tiletexture", std::string("./assets/tilemaps/jungle.png").c_str());
+
+  map = new Map("jungle-tiletexture", 2, 32);
+  map->LoadMap("./assets/tilemaps/jungle.map", 25, 20);
 
   int w,h; 
   SDL_GetWindowSize(window, &w, &h);
