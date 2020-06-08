@@ -18,8 +18,10 @@ void EntityManager::Update(float dt) {
 }
 
 void EntityManager::Render() {
-  for(auto& entity: entities) {
-    entity->Render();
+  for (int layerNumber = 0; layerNumber <= LAYER_AMOUNT; layerNumber++) {
+    for(auto& entity: this->GetEntitiesByLayer(static_cast<LayerType>(layerNumber))) {
+      entity->Render();
+    }
   }
 }
 
@@ -31,14 +33,24 @@ void EntityManager::PrintEntities() const {
   }
 }
 
-Entity& EntityManager::AddEntity (std::string entityName) {
-  Entity *entity = new Entity(*this, entityName);
+Entity& EntityManager::AddEntity (std::string entityName, LayerType layer) {
+  Entity *entity = new Entity(*this, entityName, layer);
   entities.emplace_back(entity);
   return *entity;
 }
 
 std::vector<Entity*> EntityManager::GetEntities() const {
   return entities;
+}
+
+std::vector<Entity*> EntityManager::GetEntitiesByLayer(LayerType layer) const {
+  std::vector<Entity*> layerEntities;
+  for(auto &entity: entities) {
+    if(entity->layer == layer) {
+      layerEntities.emplace_back(entity);
+    }
+  }
+  return layerEntities;
 }
 
 unsigned int EntityManager::GetEntityCount() const {

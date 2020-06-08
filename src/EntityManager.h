@@ -13,7 +13,8 @@ class EntityManager {
     void Update(float dt);
     void Render();
     bool HasNoEntities();
-    Entity& AddEntity(std::string entityName);
+    Entity& AddEntity(std::string entityName, LayerType layer);
+    std::vector<Entity*> GetEntitiesByLayer(LayerType layer) const;
     std::vector<Entity*> GetEntities() const;
     unsigned int GetEntityCount() const;
     void PrintEntities() const;

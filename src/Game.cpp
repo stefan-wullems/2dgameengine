@@ -80,31 +80,30 @@ void Game::LoadLevel(int levelNum) {
   int w,h; 
   SDL_GetWindowSize(window, &w, &h);
 
-  Entity& topRight = manager.AddEntity("top-right");
+  Entity& topRight = manager.AddEntity("top-right", ENEMY_LAYER);
   topRight.AddComponent<TransformComponent>(0, 0, 100, 20, 30, 30, 1);
   topRight.AddComponent<SpriteComponent>("tank-right-facing");
   
-  Entity& topLeft = manager.AddEntity("top-left");
+  Entity& topLeft = manager.AddEntity("top-left", ENEMY_LAYER);
   topLeft.AddComponent<TransformComponent>(w - 30, 0, -100, 20, 30, 30, 1);
   topLeft.AddComponent<SpriteComponent>("tank-left-facing");
   
-  Entity& bottomLeft = manager.AddEntity("bottom-left");
+  Entity& bottomLeft = manager.AddEntity("bottom-left", ENEMY_LAYER);
   bottomLeft.AddComponent<TransformComponent>(w - 30, h - 30, -100, -20, 30, 30, 1);
   bottomLeft.AddComponent<SpriteComponent>("tank-left-facing");
   
-  Entity& bottomRight = manager.AddEntity("bottom-right");
+  Entity& bottomRight = manager.AddEntity("bottom-right", ENEMY_LAYER);
   bottomRight.AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
   bottomRight.AddComponent<SpriteComponent>("tank-right-facing");
 
-  Entity& chopper = manager.AddEntity("chopper");
+  Entity& chopper = manager.AddEntity("chopper", PLAYER_LAYER);
   chopper.AddComponent<TransformComponent>(320, 106, 0, 0, 32, 32, 1);
   chopper.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
   chopper.AddComponent<KeyboardInputComponent>("w", "d", "s", "a", "space");
 
-  Entity& radar = manager.AddEntity("radar");
+  Entity& radar = manager.AddEntity("radar", GUI_LAYER);
   radar.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
   radar.AddComponent<SpriteComponent>("radar-image", 8, 200, false, true);
-  
 }
 
 void Game::ProcessInput() {

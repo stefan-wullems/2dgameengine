@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 
+#include "./Constants.h"
 #include "./EntityManager.h"
 #include "./Component.h"
 
@@ -19,8 +20,9 @@ class Entity {
     std::map<const std::type_info*, Component*> componentTypeMap;
   public:
     std::string name;
+    LayerType layer;
     Entity(EntityManager& manager);
-    Entity(EntityManager& manager, std::string name);
+    Entity(EntityManager& manager, std::string name, LayerType layer);
     void Update(float dt);
     void Render();
     void Destroy();
