@@ -18,6 +18,7 @@ class EntityManager {
     std::vector<Entity*> GetEntities() const;
     unsigned int GetEntityCount() const;
     void PrintEntities() const;
+    std::string CheckEntityColissions(Entity& entity);
 };
 
 #endif

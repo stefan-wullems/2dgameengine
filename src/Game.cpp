@@ -10,6 +10,8 @@
 #include "./Components/TransformComponent.h"
 #include "./Components/SpriteComponent.h"
 #include "./Components/KeyboardInputComponent.h"
+#include "./Components/ColliderComponent.h"
+#include "./Components/LogTransformComponent.h"
 
 EntityManager manager;
 AssetManager* Game::assetManager = new AssetManager(&manager);
@@ -85,22 +87,27 @@ void Game::LoadLevel(int levelNum) {
   Entity& topRight = manager.AddEntity("top-right", ENEMY_LAYER);
   topRight.AddComponent<TransformComponent>(0, 0, 100, 20, 30, 30, 1);
   topRight.AddComponent<SpriteComponent>("tank-right-facing");
+  topRight.AddComponent<ColliderComponent>("enemy", 0, 0, 30, 30);
   
   Entity& topLeft = manager.AddEntity("top-left", ENEMY_LAYER);
   topLeft.AddComponent<TransformComponent>(w - 30, 0, -100, 20, 30, 30, 1);
   topLeft.AddComponent<SpriteComponent>("tank-left-facing");
+  topLeft.AddComponent<ColliderComponent>("enemy", w - 30, 0, 30, 30);
   
   Entity& bottomLeft = manager.AddEntity("bottom-left", ENEMY_LAYER);
   bottomLeft.AddComponent<TransformComponent>(w - 30, h - 30, -100, -20, 30, 30, 1);
   bottomLeft.AddComponent<SpriteComponent>("tank-left-facing");
+  bottomLeft.AddComponent<ColliderComponent>("enemy", w - 30, h - 30, 30, 30);
   
   Entity& bottomRight = manager.AddEntity("bottom-right", ENEMY_LAYER);
   bottomRight.AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
   bottomRight.AddComponent<SpriteComponent>("tank-right-facing");
+  bottomRight.AddComponent<ColliderComponent>("enemy", 0, h - 30, 30, 30);
 
   player.AddComponent<TransformComponent>(320, 106, 0, 0, 32, 32, 1);
   player.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
   player.AddComponent<KeyboardInputComponent>("w", "d", "s", "a", "space");
+  player.AddComponent<ColliderComponent>("player", 320, 106, 32, 32);
 
   Entity& radar = manager.AddEntity("radar", GUI_LAYER);
   radar.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
@@ -141,6 +148,7 @@ void Game::Update() {
   manager.Update(dt);
 
   this->HandleCameraMovement();
+  this->CheckColissions();
 }
 
 void Game::HandleCameraMovement() {
@@ -153,6 +161,14 @@ void Game::HandleCameraMovement() {
   Game::camera.y = Game::camera.y < 0 ? 0 : Game::camera.y;
   Game::camera.x = Game::camera.x > camera.w ? Game::camera.w : Game::camera.x;
   Game::camera.y = Game::camera.y > camera.h ? Game::camera.h : Game::camera.y;
+}
+
+void Game::CheckColissions() {
+  std::string collidedTag =  manager.CheckEntityColissions(player);
+  if(collidedTag.compare("enemy") == 0) {
+    std::cout << "bla" << std::endl;
+    this->isRunning = false;
+  }
 }
 
 void Game::Render() {
