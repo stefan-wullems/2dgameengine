@@ -37,7 +37,8 @@ class TileComponent: public Component {
     }
 
     void Update (float dt) override {
-
+      this->destRect.x = this->position.x - Game::camera.x;
+      this->destRect.y = this->position.y - Game::camera.y;
     }
 
     void Render () override {

@@ -16,6 +16,7 @@ AssetManager* Game::assetManager = new AssetManager(&manager);
 SDL_Renderer* Game::renderer;
 SDL_Window* Game::window;
 SDL_Event Game::event;
+SDL_Rect Game::camera = {0,0,WINDOW_WIDTH, WINDOW_HEIGHT};
 Map* map;
 
 Game::Game() {
@@ -64,6 +65,7 @@ void Game::Initialize(int width, int height) {
   return;
 }
 
+Entity& player = manager.AddEntity("chopper", PLAYER_LAYER);
 void Game::LoadLevel(int levelNum) {
 
   assetManager->AddTexture("tank-right-facing", std::string("./assets/images/tank-big-right.png").c_str());
@@ -96,10 +98,9 @@ void Game::LoadLevel(int levelNum) {
   bottomRight.AddComponent<TransformComponent>(0, h - 30, 100, -20, 30, 30, 1);
   bottomRight.AddComponent<SpriteComponent>("tank-right-facing");
 
-  Entity& chopper = manager.AddEntity("chopper", PLAYER_LAYER);
-  chopper.AddComponent<TransformComponent>(320, 106, 0, 0, 32, 32, 1);
-  chopper.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
-  chopper.AddComponent<KeyboardInputComponent>("w", "d", "s", "a", "space");
+  player.AddComponent<TransformComponent>(320, 106, 0, 0, 32, 32, 1);
+  player.AddComponent<SpriteComponent>("chopper-image", 2, 90, true, false);
+  player.AddComponent<KeyboardInputComponent>("w", "d", "s", "a", "space");
 
   Entity& radar = manager.AddEntity("radar", GUI_LAYER);
   radar.AddComponent<TransformComponent>(720, 15, 0, 0, 64, 64, 1);
@@ -138,6 +139,20 @@ void Game::Update() {
   ticksLastFrame = SDL_GetTicks();
 
   manager.Update(dt);
+
+  this->HandleCameraMovement();
+}
+
+void Game::HandleCameraMovement() {
+  TransformComponent* tranform = player.GetComponent<TransformComponent>();
+
+  Game::camera.x = tranform->position.x - (WINDOW_WIDTH / 2);
+  Game::camera.y = tranform->position.y - (WINDOW_HEIGHT / 2);
+
+  Game::camera.x = Game::camera.x < 0 ? 0 : Game::camera.x;
+  Game::camera.y = Game::camera.y < 0 ? 0 : Game::camera.y;
+  Game::camera.x = Game::camera.x > camera.w ? Game::camera.w : Game::camera.x;
+  Game::camera.y = Game::camera.y > camera.h ? Game::camera.h : Game::camera.y;
 }
 
 void Game::Render() {

@@ -57,26 +57,26 @@ class KeyboardInputComponent: public Component {
         std::string keyCode = std::to_string(Game::event.key.keysym.sym);
 
         if(keyCode.compare(this->upKey) == 0) {
-          this->transform->velocity.y = -50;
+          this->transform->velocity.y = -200;
           this->transform->velocity.x = 0;
 
           this->sprite->Play("UpAnimation");
         }
         if(keyCode.compare(this->rightKey) == 0) {
           this->transform->velocity.y = 0;
-          this->transform->velocity.x = 50;
+          this->transform->velocity.x = 200;
 
           this->sprite->Play("RightAnimation");
         }
         if(keyCode.compare(this->downKey) == 0) {
-          this->transform->velocity.y = 50;
+          this->transform->velocity.y = 200;
           this->transform->velocity.x = 0;
 
           this->sprite->Play("DownAnimation");
         }
         if(keyCode.compare(this->leftKey) == 0) {
           this->transform->velocity.y = 0;
-          this->transform->velocity.x = -50;
+          this->transform->velocity.x = -200;
 
           this->sprite->Play("LeftAnimation");
         }

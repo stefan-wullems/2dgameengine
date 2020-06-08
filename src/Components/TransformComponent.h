@@ -30,14 +30,11 @@ class TransformComponent: public Component {
     }
 
     void Update(float dt) override {
-      int windowWidth,windowHeight; 
-      SDL_GetWindowSize(Game::window, &windowWidth, &windowHeight);
-
       float newX = position.x + (velocity.x * dt);
       float newY = position.y + (velocity.y * dt);
 
-      if (newX > 0 && newX < windowWidth - this->width) this->position.x = newX;
-      if (newY > 0 && newY < windowHeight - this->height) this->position.y = newY;
+      this->position.x = newX;
+      this->position.y = newY;
     }
 
     void Render() override {
